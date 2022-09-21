@@ -9,7 +9,8 @@ export class AppService {
     /* chamar o repository */
     /* definir o banco de Dados */
     const con = await this.connectdb.connect();
-    console.log(con);
+    console.log(await con.query('select * from users'));
+    await con.end()
 
     console.log(createuser);
   }

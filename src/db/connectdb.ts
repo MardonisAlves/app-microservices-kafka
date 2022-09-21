@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Client, Pool } from 'pg'
+import {  Pool } from 'pg'
 @Injectable()
 export default class ConnectDb {
     async connect() {
