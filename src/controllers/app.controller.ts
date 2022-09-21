@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Ctx, EventPattern, KafkaContext, Payload } from '@nestjs/microservices';
+import { Ctx, EventPattern, KafkaContext, KafkaRetriableException, Payload } from '@nestjs/microservices';
 import { createUser } from 'src/interfaces/create.interface';
 import { AppService } from 'src/services/app.service';
 
@@ -8,8 +8,13 @@ import { AppService } from 'src/services/app.service';
 export class AppController{
   constructor(private appService:AppService){}
   @EventPattern('create_user')
-  createUser(@Payload() createuser:createUser, @Ctx() context:KafkaContext){ 
-   return this.appService.createUser(createuser);
+ async createUser(@Payload() createuser:createUser, @Ctx() context:KafkaContext){ 
+  try {
+    const create = await this.appService.createUser(createuser);
+    return create;
+  } catch (error) {
+    throw new KafkaRetriableException(error)
+  }
   }
   
 }

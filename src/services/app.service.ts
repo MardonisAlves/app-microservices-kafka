@@ -1,17 +1,17 @@
 import {  Injectable } from '@nestjs/common';
 import { createUser } from 'src/interfaces/create.interface';
-import ConnectDb from 'src/db/connectdb';
+import UsersRepositories from 'src/repositories/user-repositories';
+
 
 @Injectable()
 export class AppService {
- constructor(private readonly connectdb:ConnectDb){}
+constructor(private readonly usersRepositories:UsersRepositories){}
  async createUser(createuser:createUser){
-    /* chamar o repository */
-    /* definir o banco de Dados */
-    const con = await this.connectdb.connect();
-    console.log(await con.query('select * from users'));
-    await con.end()
-
-    console.log(createuser);
+    try {
+      const create = await this.usersRepositories.createUser(createuser);
+      return create;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
