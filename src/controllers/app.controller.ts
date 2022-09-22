@@ -22,5 +22,14 @@ export class AppController{
 async verificarUser(@Payload() email:createUser){
      return await this.appService.verificarUser(email.email);
   }
+@MessagePattern('delete_user')
+async deleteUser(@Payload() id:string){
+  const deleteUser= await this.appService.deleteUser(id);
+  if(deleteUser.length > 0){
+    return {message:'Usuario deletado com sucesso'}
+  }else{
+    return {message: 'Usuario não encontrado'}
+  }
+  }
   
 }

@@ -24,4 +24,14 @@ constructor(private readonly usersRepositories:UsersRepositories){}
       
     }
   }
+
+async deleteUser(id:string){
+  try {
+    const deleteUser = await this.usersRepositories.deleteUser(id);
+    return deleteUser;
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 }

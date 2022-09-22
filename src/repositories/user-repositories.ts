@@ -8,10 +8,6 @@ constructor(private readonly connectdb:ConnectDb){}
 
     async createUser(createuser:createUser){
         try {
-            // const veriUser = await this.verificarUser(createuser.email);
-            // if(veriUser.length > 0) {
-            //   return {message:'Usuario ja esta cadastrado'}
-            // }
             const con = await this.connectdb.connect();
             const sqlquery = `INSERT INTO users(first_name, email, last_name, phone)VALUES($1, $2, $3, $4) RETURNING *`;
             const bind =  [createuser.first_name, createuser.email, createuser.last_name, createuser.phone];
@@ -32,6 +28,19 @@ constructor(private readonly connectdb:ConnectDb){}
       return res.rows;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async deleteUser(id:string){
+    try {
+      const con = await this.connectdb.connect();
+      const deleteUser = `DELETE FROM users where user_id = $1 RETURNING user_id`;
+      const bind = [id];
+      const res = await con.query(deleteUser, bind);
+      return res.rows;
+    } catch (error) {
+      console.log(error);
+      
     }
   }
 }
