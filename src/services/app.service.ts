@@ -14,4 +14,14 @@ constructor(private readonly usersRepositories:UsersRepositories){}
       console.log(error);
     }
   }
+
+  async verificarUser(email:string){
+    try {
+     const verifiUser = await this.usersRepositories.verificarUser(email); 
+     return verifiUser;
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
 }
