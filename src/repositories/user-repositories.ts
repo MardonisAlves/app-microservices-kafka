@@ -60,4 +60,16 @@ export default class UsersRepositories {
       console.log(error);
     }
   }
+
+
+  async allUsers(){
+    try {
+      const con = await this.connectdb.connect();
+      const allUser = `SELECT * FROM users`;
+      const res = await con.query(allUser);
+      return res.rows;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

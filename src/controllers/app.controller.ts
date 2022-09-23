@@ -36,5 +36,10 @@ async deleteUser(@Payload() id:string){
   async updateUser(@Payload() user:any){
     return this.appService.updatUser(user)
   }
+
+  @MessagePattern('all_users')
+  async allUsers(){
+   return await this.appService.allUsers();
+  }
   
 }

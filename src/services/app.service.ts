@@ -42,4 +42,13 @@ async updatUser(user:createUser){
     console.log(error);
   }
 }
+
+async allUsers(){
+  try {
+    const allusers = await this.usersRepositories.allUsers();
+    return allusers;
+  } catch (error) {
+   console.log(error);
+  }
+}
 }
