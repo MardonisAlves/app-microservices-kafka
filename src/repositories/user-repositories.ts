@@ -3,22 +3,22 @@ import ConnectDb from "src/db/connectdb";
 import { createUser } from "src/interfaces/create.interface";
 
 @Injectable()
-export default class UsersRepositories{
-constructor(private readonly connectdb:ConnectDb){}
+export default class UsersRepositories {
+  constructor(private readonly connectdb: ConnectDb) { }
 
-    async createUser(createuser:createUser){
-        try {
-            const con = await this.connectdb.connect();
-            const sqlquery = `INSERT INTO users(first_name, email, last_name, phone)VALUES($1, $2, $3, $4) RETURNING *`;
-            const bind =  [createuser.first_name, createuser.email, createuser.last_name, createuser.phone];
-            const res = await con.query(sqlquery, bind);
-            await con.end();
-            return res.rows;
-          } catch (error) {
-            console.log(error);
-          }
+  async createUser(createuser: createUser) {
+    try {
+      const con = await this.connectdb.connect();
+      const sqlquery = `INSERT INTO users(first_name, email, last_name, phone)VALUES($1, $2, $3, $4) RETURNING *`;
+      const bind = [createuser.first_name, createuser.email, createuser.last_name, createuser.phone];
+      const res = await con.query(sqlquery, bind);
+      await con.end();
+      return res.rows;
+    } catch (error) {
+      console.log(error);
     }
-  async verificarUser(email:string){
+  }
+  async verificarUser(email: string) {
     try {
       const con = await this.connectdb.connect();
       const veriUser = `SELECT * FROM users where email= $1`;
@@ -31,7 +31,7 @@ constructor(private readonly connectdb:ConnectDb){}
     }
   }
 
-  async deleteUser(id:string){
+  async deleteUser(id: string) {
     try {
       const con = await this.connectdb.connect();
       const deleteUser = `DELETE FROM users where user_id = $1 RETURNING user_id`;
@@ -40,7 +40,24 @@ constructor(private readonly connectdb:ConnectDb){}
       return res.rows;
     } catch (error) {
       console.log(error);
-      
+
+    }
+  }
+
+  async updateUser(user:createUser) {
+    try {
+      const con = await this.connectdb.connect();
+      const bind = [user.first_name, user.first_name, user.email, user.phone, user.id]
+      const update = `
+      UPDATE  users 
+      set first_name= $1, last_name= $2, email= $3, phone= $4 where user_id = $5 RETURNING user_id`;
+      const res = await con.query(update, bind);
+      return {
+        message:'Usuario atualizado com sucesso!',
+        ...res.rows[0]
+      };
+    } catch (error) {
+      console.log(error);
     }
   }
 }

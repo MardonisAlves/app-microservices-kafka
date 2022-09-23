@@ -31,5 +31,10 @@ async deleteUser(@Payload() id:string){
     return {message: 'Usuario não encontrado'}
   }
   }
+
+  @MessagePattern('update_user')
+  async updateUser(@Payload() user:any){
+    return this.appService.updatUser(user)
+  }
   
 }

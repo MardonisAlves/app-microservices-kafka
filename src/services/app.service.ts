@@ -21,7 +21,6 @@ constructor(private readonly usersRepositories:UsersRepositories){}
      return verifiUser;
     } catch (error) {
       console.log(error);
-      
     }
   }
 
@@ -32,6 +31,15 @@ async deleteUser(id:string){
   } catch (error) {
     console.log(error);
     
+  }
+}
+
+async updatUser(user:createUser){
+  try {
+   const updateUser = await this.usersRepositories.updateUser(user);
+   return updateUser;
+  } catch (error) {
+    console.log(error);
   }
 }
 }
