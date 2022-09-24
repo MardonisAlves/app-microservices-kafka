@@ -10,6 +10,7 @@ export class AppController{
 
   @MessagePattern('create_user')
  async createUser(@Payload() createuser:createUser):Promise<any>{ 
+
     const veriUser = await this.verificarUser(createuser);
     if(veriUser.length > 0) return {message:'Usuario ja cadastrado'}
 
