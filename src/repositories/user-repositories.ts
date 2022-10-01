@@ -47,7 +47,7 @@ export default class UsersRepositories {
   async updateUser(user:createUser) {
     try {
       const con = await this.connectdb.connect();
-      const bind = [user.first_name, user.first_name, user.email, user.phone, user.id]
+      const bind = [user.first_name, user.last_name, user.email, user.phone, user.id]
       const update = `
       UPDATE  users 
       set first_name= $1, last_name= $2, email= $3, phone= $4 where user_id = $5 RETURNING user_id`;
