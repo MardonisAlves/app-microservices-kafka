@@ -1,14 +1,14 @@
 import {  Injectable } from '@nestjs/common';
 import { createUser } from 'src/interfaces/create.interface';
-import UsersRepositories from 'src/repositories/user-repositories';
+import ClienteRepositories from 'src/repositories/cliente-repositories';
 
 
 @Injectable()
-export class AppService {
-constructor(private readonly usersRepositories:UsersRepositories){}
+export class ClienteService {
+constructor(private readonly clienteRepositories:ClienteRepositories){}
  async createUser(createuser:createUser){
     try {
-      const create = await this.usersRepositories.createUser(createuser);
+      const create = await this.clienteRepositories.createUser(createuser);
       return create;
     } catch (error) {
       console.log(error);
@@ -17,7 +17,7 @@ constructor(private readonly usersRepositories:UsersRepositories){}
 
   async verificarUser(email:string){
     try {
-     const verifiUser = await this.usersRepositories.verificarUser(email); 
+     const verifiUser = await this.clienteRepositories.verificarUser(email); 
      return verifiUser;
     } catch (error) {
       console.log(error);
@@ -26,7 +26,7 @@ constructor(private readonly usersRepositories:UsersRepositories){}
 
 async deleteUser(id:string){
   try {
-    const deleteUser = await this.usersRepositories.deleteUser(id);
+    const deleteUser = await this.clienteRepositories.deleteUser(id);
     return deleteUser;
   } catch (error) {
     console.log(error);
@@ -36,7 +36,7 @@ async deleteUser(id:string){
 
 async updatUser(user:createUser){
   try {
-   const updateUser = await this.usersRepositories.updateUser(user);
+   const updateUser = await this.clienteRepositories.updateUser(user);
    return updateUser;
   } catch (error) {
     console.log(error);
@@ -45,7 +45,7 @@ async updatUser(user:createUser){
 
 async allUsers(){
   try {
-    const allusers = await this.usersRepositories.allUsers();
+    const allusers = await this.clienteRepositories.allUsers();
     return allusers;
   } catch (error) {
    console.log(error);

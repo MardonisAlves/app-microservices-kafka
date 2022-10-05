@@ -3,5 +3,6 @@ export interface createUser{
     email:string;
     last_name?:string;
     phone?:string;
+    senha:string;
     id?:string;
 }
