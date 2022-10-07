@@ -13,12 +13,16 @@ export default class UserRepositories{
         const sql = `insert into users(email, senha) values ($1, $2) RETURNING *`;
         const sqlRes = await con.query(sql, bind);
         if(sqlRes.rows.length != 0){
-          return {message:'Usuário cadastrado com sucesso!'}
+          return {
+            status:true,
+            message:'Usuário cadastrado com sucesso!'
+          }
         }else{
           return []
         }
      } catch (error) {
-       console.log(error);
+      const {detail} = error
+      return {message:detail}
      }   
     }
 
