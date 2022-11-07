@@ -12,10 +12,10 @@ export class AppController{
  async createUser(@Payload() createuser:createUser):Promise<any>{ 
 
     const veriUser = await this.verificarUser(createuser);
-    if(veriUser.length > 0) return {message:'Usuario ja cadastrado'}
+    if(veriUser.length > 0) return {message:'Cliente ja cadastrado'}
 
     const create = await this.clienteService.createUser(createuser);
-    if(create.length > 0) return {message:'Usuario cadastrado com sucesso'}
+    if(create.length > 0) return {message:'Cliente cadastrado com sucesso'}
 
   }
 
@@ -27,9 +27,9 @@ async verificarUser(@Payload() email:createUser){
 async deleteUser(@Payload() id:string){
   const deleteUser= await this.clienteService.deleteUser(id);
   if(deleteUser.length > 0){
-    return {message:'Usuario deletado com sucesso'}
+    return {message:'Cliente deletado com sucesso'}
   }else{
-    return {message: 'Usuario não encontrado'}
+    return {message: 'Cliente não encontrado'}
   }
   }
 

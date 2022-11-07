@@ -53,7 +53,7 @@ export default class ClienteRepositories {
       set first_name= $1, last_name= $2, email= $3, phone= $4 where user_id = $5 RETURNING user_id`;
       const res = await con.query(update, bind);
       return {
-        message:'Usuario atualizado com sucesso!'
+        message:'Cliente atualizado com sucesso!'
       };
     } catch (error) {
       console.log(error);
